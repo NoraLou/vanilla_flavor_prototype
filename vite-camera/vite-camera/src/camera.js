@@ -1,16 +1,17 @@
-export async function getVideo() {
+export const setupVideo = async () => {
+  const video = document.createElement("video");
+  const stream = await navigator.mediaDevices.getUserMedia({ video: true });
 
-  const avStream = await navigator.mediaDevices.getUserMedia({
-    audio: true,
-    video: true
-  });
-
-  const video = document.querySelector('video');
-  video.srcObject = avStream;
+  try {
+    video.srcObject = stream
+  } catch (error) {
+    video.src = window.URL.createObjectURL(stream);
+  }
   await video.play();
-};
+  return video;
+}
 
-export function drawVideo(canvas) {
-  const context = canvas.getContext('2d');
-  const domCanvas = document.querySelector('canvas');
+export function takePhoto(video, canvas) {
+  const context = canvas.getContext("2d");
+  context.drawImage(video, 0, 0);
 }
