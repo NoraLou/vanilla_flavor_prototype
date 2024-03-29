@@ -3,13 +3,13 @@ export const setupVideo = async () => {
   const stream = await navigator.mediaDevices.getUserMedia({ video: true });
 
   try {
-    video.srcObject = stream
+    video.srcObject = stream;
   } catch (error) {
     video.src = window.URL.createObjectURL(stream);
   }
   await video.play();
   return video;
-}
+};
 
 export function takePhoto(video, canvas) {
   const context = canvas.getContext("2d");
